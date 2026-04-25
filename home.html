@@ -1,12 +1,438 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>StayEase</title>
+
+    <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+
+    * {                        /*resets everything to zero*/
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {                                   /* default style for whole page*/
+      font-family: 'DM Sans', sans-serif;
+      background-color: #FAF7F2;
+      color: #0D1B2A;
+      line-height: 1.6;
+    }
+
+     a {
+      text-decoration: none;   /* remove underline in links*/
+    }
+
+    ul {
+      list-style: none;        /* remove bullets*/
+    }
+
+    /* CSS variables */
+    :root {
+      --gold:       #C9A96E;
+      --gold-light: #E8D5B0;
+      --gold-dark:  #8B6914;
+      --navy:       #0D1B2A;
+      --navy-mid:   #1A2E42;
+      --cream:      #FAF7F2;
+      --cream-mid:  #F0EBE1;
+      --text-dark:  #0D1B2A;
+      --text-mid:   #4A5568;
+      --text-light: #8A9BA8;
+      --white:      #FFFFFF;
+    }
+
+    /*Navbar*/
+    header{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        border-bottom: 1px solid rgba(201, 169, 110, 0.2);
+        background: rgba(13, 27, 42, 0.95);
+        backdrop-filter: blur(12px);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+      padding: 0 60px;
+    }
+     /*Stay ease logo*/
+    .home-logo{
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 30px;
+        font-weight: 500;
+        color:var(--gold);
+        letter-spacing: 2px;
+    }
+
+    .home-logo span{
+      color:var(--white);
+    }
+
+    .nav-links{
+      display:flex;
+      gap: 36px;
+    }
+
+    .nav-links a {
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    /*login buttoms*/
+    .home-login{
+      display: flex;
+      gap:12px;
+      align-items: center;
+    }
+
+    .home-signinBtn{
+      padding: 8px 20px;
+      border: 1px solid rgba(201, 169, 110, 0.5);
+      color: var(--gold);
+      background: transparent;
+      border-radius: 4px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+
+    .home-signinBtn:hover{
+      background: rgba(201, 169, 110, 0.1);
+    }
+
+    .home-registerBtn {
+      padding: 8px 20px;
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      border-radius: 4px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+
+    .home-registerBtn:hover {
+      background: var(--gold-light);
+    }
+    
+    /*hero section*/
+
+    .hero{
+      position:relative;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--navy);
+      overflow: hidden;
+    }
+
+    /* Background Image Layer */
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.25;
+    }
+
+    /* Dark Overlay Layer */
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(13, 27, 42, 0.6) 0%,
+        rgba(13, 27, 42, 0.85) 100%
+      );
+    }
+
+    /* Content sits above both layers */
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 100px 20px 0 20px;
+      max-width: 900px;
+    }
+
+    /* Small Label */
+    .hero-tag {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+
+    /* Main Headline */
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 80px;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    /* Subtitle */
+    .hero-sub {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.6);
+      max-width: 480px;
+      margin: 0 auto 48px;
+    }
+
+    /* Search widget */
+    .home-search{
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      width: min(760px, 90vw);
+      margin: 0 auto 56px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(201, 169, 110, 0.25);
+      border-radius: 8px;
+      padding: 6px;
+      backdrop-filter: blur(16px);
+    }
+
+    .home-search_field {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 12px 18px;
+      border-right: 1px solid rgba(201, 169, 110, 0.2);
+    }
+
+    /* Remove border from last field before the button */
+    .home-search_field:last-of-type {
+      border-right: none;
+    }
+
+    .home-search_field label {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .home-search_field input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      width: 100%;
+    }
+
+    .home-search_field input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* Date input text color fix */
+    .home-search_field input[type="date"] {
+      color-scheme: dark;
+    }
+
+    /* Search Button */
+    .home-search button[type="submit"] {
+      padding: 12px 28px;
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      border-radius: 4px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+      align-self: center;
+    }
+
+    .home-search button[type="submit"]:hover {
+      background: var(--gold-light);
+    }
+
+    /*stats bar*/
+    .stats-bar {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(201, 169, 110, 0.2);
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.45);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+
+
+  </style>
+
+
 </head>
 <body>
-    
-    
+    <header>
+        <nav>
+            <a href="home.html" class="home-logo">
+                Stay<span>Ease</span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="rooms.html" >Rooms</a></li>
+                <li><a href="#amenities">Amenities</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+
+            <div class="home-login">
+                <a href="login.html" class="home-signinBtn">Sign in</a>     <!-- should be connected with login.html-->
+                <a href="register.html" class="home-registerBtn">Register</a> <!-- register file should be done -->
+            </div>
+
+        </nav>
+    </header>
+
+    <section class="hero">
+        <!-- Layer 1: Background Image -->
+        <div class="hero-bg"></div>
+
+        <!-- Layer 2: Dark Overlay -->
+        <div class="hero-overlay"></div>
+
+        <!-- Layer 3: Main Content -->
+         <div class="hero-content">
+
+        <!-- Small Label -->
+        <p class="hero-tag">✦ Luxury Redefined</p>
+
+        <!-- Main Headline -->
+        <h1 class="hero-title">
+         Where Every Stay<br>
+        Becomes a <em>Memory</em>
+        </h1>
+
+          <!-- Subtitle -->
+    <p class="hero-sub">
+      Discover curated rooms and suites crafted for the 
+      discerning traveler. Book with confidence, arrive 
+      to perfection.
+    </p>
+
+    <!--Search widget -->
+    <form class="home-search" action="search.php" method="GET">  <!-- search.php file is needed -->  
+        
+        <!-- 1)Destination-->
+        <div class="home-search_field">
+            <label for="destination">Destination</label>
+            <input type="text" id="destination" name="destination" placeholder="city or hotel name">
+        </div>
+
+        <!-- 2)check in -->
+         <div class="home-search_field">
+            <label for="checkin">Check in</label>
+            <input type="date" id="checkin" name="checkin">
+         </div>
+
+         <!-- 3)check out-->
+          <div class="home-search_field">
+            <label for="checkout">Check out</label>
+            <input type="date" id="checkout" name="checkout">
+          </div>
+
+          <!-- 4)guests -->
+           <div class="home-search_field">
+            <label for="guests">Guests</label>
+            <input type="number" id="guests" name="guests" placeholder="2" min="1" max="10">
+           </div>
+
+           <!-- search button -->
+            <button type="submit">Search </button>
+
+    </form>
+
+    <!-- stats bar-->
+     <div class="stats-bar">
+
+        <div class="stat">
+            <p class="stat-num">10k+</p>
+            <p class="stat-label">Bookings completed</p>
+        </div>
+
+        <div class="stat">
+        <p class="stat-num">4.9★</p>
+        <p class="stat-label">Guest Rating</p>
+      </div>
+
+        <div class="stat">
+        <p class="stat-num">12K+</p>
+        <p class="stat-label">Happy Guests</p>
+      </div>
+
+      <div class="stat">
+        <p class="stat-num">24/7</p>
+        <p class="stat-label">Concierge Service</p>
+      </div>
+
+     </div>
+    </section>        <!-- end of section hero -->
+
+
+
+
+
 </body>
 </html>
