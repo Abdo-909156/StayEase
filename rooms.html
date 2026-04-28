@@ -3,29 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>Rooms & Suites - Stay Ease</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-    body {
+
+    /*Universal selector used to reset css default by browser*/
+*{
+    padding: 0px;
+    margin : 0px;
+}
+
+body {
         font-family: 'Times New Roman', Times, serif;
-        background-color: #03172b
-
-
-;
+        background-color: #03172b;
     }
-    h3 {
-        color: #f0f0f0;
-        font-family: 'Garamond', serif;
-    }
+    
     .rooms-head {
         text-align: left;
         margin-top: 20px;
         color: #f0f0f0;
+        
     }
     .rooms-header {
+        font-family:'Cormorant Garamond', serif;
+        box-sizing: border-box;
+        border-top:  0.5px solid #e8d5b0;
+        border-bottom: 0.5px solid #e8d5b0;
+        margin: 0px;
+        padding: 26px;
+        font-size: 26px;
         background-color: #041b33;
         color: #f0f0f0;
-        padding: 10px;
         text-align: left;
+
     }
+    .rooms-logo {
+        text-decoration: none;
+        color: #f0f0f0;
+    }
+    .rooms-logo span {
+        color: #c9a96e;
+    }
+
 </style>
 
 <script>
@@ -34,8 +52,9 @@
 
 </head>
 <body>
-    <div class="rooms-header">
-        <h3>Stay Ease</h3>
+    
+        <div class="rooms-header">
+        <a href="home.html" class="rooms-logo">Stay<span>Ease</span></a>
     </div>
     
 
