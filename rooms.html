@@ -1,72 +1,368 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Rooms & Suites - Stay Ease</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rooms & Suites — StayEase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-
-    /*Universal selector used to reset css default by browser*/
+   /*Universal selector used to reset css default by browser*/
 *{
     padding: 0px;
     margin : 0px;
 }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --gold: #C9A96E; --gold-light: #E8D5B0; --gold-dark: #8B6914;
+    --navy: #0D1B2A; --navy-mid: #1A2E42; --navy-soft: #243447;
+    --cream: #FAF7F2; --cream-mid: #F0EBE1;
+    --text-dark: #0D1B2A; --text-mid: #4A5568; --text-light: #8A9BA8;
+    --white: #FFFFFF; --shadow-soft: 0 4px 24px rgba(13,27,42,0.08);
+    --radius: 4px; --radius-lg: 8px;
+  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-dark); }
 
-body {
-        font-family: 'Times New Roman', Times, serif;
-        background-color: #03172b;
-    }
-    
-    .rooms-head {
-        text-align: left;
-        margin-top: 20px;
-        color: #f0f0f0;
-        
-    }
-    .rooms-header {
-        font-family:'Cormorant Garamond', serif;
-        margin: 0px;
-        padding: 26px;
-        font-size: 26px;
-        font-weight: 500;
-        color: #f0f0f0;
-        text-align: left;
-
-    }
-    .rooms-logo {
-        text-decoration: none;
-        color: #c9a96e;
-    }
-    .rooms-logo span {
-        color: #f0f0f0;
-    }
-    
-   .rooms-nav {
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
     padding: 0 60px; height: 72px;
     background: rgba(13,27,42,0.97); backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(201,169,110,0.2);
   }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500; color: var(--gold); text-decoration: none; }
+  .nav-logo span { color: var(--white); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-right { display: flex; gap: 12px; }
+  .btn-ghost { padding: 8px 20px; border: 1px solid rgba(201,169,110,0.5); color: var(--gold); background: transparent; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 14px; cursor: pointer; text-decoration: none; display: inline-block; }
+  .btn-gold { padding: 8px 20px; background: var(--gold); color: var(--navy); border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; text-decoration: none; display: inline-block; }
 
+  /* PAGE HEADER */
+  .page-header {
+    background: var(--navy);
+    padding: 64px 60px 48px;
+    border-bottom: 1px solid rgba(201,169,110,0.15);
+  }
+  .breadcrumb { font-size: 13px; color: rgba(255,255,255,0.4); margin-bottom: 16px; }
+  .breadcrumb a { color: var(--gold); text-decoration: none; }
+  .page-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 300; color: var(--white); margin-bottom: 8px; }
+  .page-header p { font-size: 15px; color: rgba(255,255,255,0.5); }
+
+  /* MAIN LAYOUT */
+  .main-layout { display: grid; grid-template-columns: 1fr; gap: 0; min-height: calc(100vh - 280px); }
+
+  /* ROOMS CONTENT */
+  .rooms-content { padding: 32px 40px; }
+  .results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
+  .results-count { font-size: 15px; color: var(--text-mid); }
+  .results-count strong { color: var(--text-dark); }
+  .sort-select { padding: 8px 16px; background: var(--white); border: 1px solid var(--cream-mid); border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text-dark); cursor: pointer; }
+  .view-toggle { display: flex; gap: 4px; }
+  .view-btn { padding: 8px 12px; background: transparent; border: 1px solid var(--cream-mid); color: var(--text-light); cursor: pointer; font-size: 14px; transition: all 0.2s; }
+  .view-btn:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+  .view-btn:last-child { border-radius: 0 var(--radius) var(--radius) 0; }
+  .view-btn.active { background: var(--navy); color: var(--gold); border-color: var(--navy); }
+
+  /* ROOM LIST CARDS */
+  .room-list { display: flex; flex-direction: column; gap: 20px; }
+  .room-list-card {
+    background: var(--white); border-radius: var(--radius-lg); overflow: hidden;
+    box-shadow: var(--shadow-soft); display: flex; transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+  .room-list-card:hover { transform: translateY(-3px); box-shadow: 0 8px 40px rgba(13,27,42,0.12); }
+  .room-list-img { width: 280px; min-height: 180px; flex-shrink: 0; position: relative; overflow: hidden; }
+  .room-list-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .rl-badge { position: absolute; top: 12px; left: 12px; font-size: 10px; letter-spacing: 1px; padding: 4px 10px; border-radius: 2px; text-transform: uppercase; }
+  .badge-avail { background: var(--navy); color: var(--gold); }
+  .badge-pop { background: var(--gold); color: var(--navy); }
+  .badge-last { background: #c0392b; color: var(--white); }
+  .badge-booked { background: rgba(13,27,42,0.5); color: rgba(255,255,255,0.6); }
+  .room-list-info { flex: 1; padding: 24px 28px; display: flex; flex-direction: column; justify-content: space-between; }
+  .room-list-top { display: flex; justify-content: space-between; align-items: flex-start; }
+  .room-list-type { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+  .room-list-name { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: var(--text-dark); margin-bottom: 10px; }
+  .room-list-desc { font-size: 13px; color: var(--text-mid); line-height: 1.6; margin-bottom: 14px; }
+  .room-list-meta { display: flex; gap: 20px; font-size: 13px; color: var(--text-light); }
+  .room-list-price-block { text-align: right; }
+  .room-list-price { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 500; color: var(--text-dark); line-height: 1; }
+  .room-list-per { font-size: 12px; color: var(--text-light); margin-bottom: 14px; }
+  .room-list-actions { display: flex; gap: 8px; }
+  .btn-view { padding: 8px 16px; background: transparent; border: 1px solid var(--cream-mid); border-radius: var(--radius); font-size: 13px; color: var(--text-mid); cursor: pointer; transition: all 0.2s; }
+  .btn-view:hover { border-color: var(--text-mid); color: var(--text-dark); }
+  .btn-book-sm { padding: 8px 20px; background: var(--navy); border: 1px solid var(--navy); border-radius: var(--radius); font-size: 13px; color: var(--gold); cursor: pointer; transition: all 0.2s; }
+  .btn-book-sm:hover { background: var(--navy-soft); }
+  .room-list-bottom { display: flex; justify-content: space-between; align-items: flex-end; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag { font-size: 11px; padding: 4px 10px; background: var(--cream); border-radius: 100px; color: var(--text-mid); }
+
+  /* PAGINATION */
+  .pagination { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--cream-mid); }
+  .page-btn { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: var(--white); border: 1px solid var(--cream-mid); border-radius: var(--radius); font-size: 14px; color: var(--text-mid); cursor: pointer; transition: all 0.2s; }
+  .page-btn:hover, .page-btn.active { background: var(--navy); color: var(--gold); border-color: var(--navy); }
+  .page-btn.disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* AVAILABILITY INDICATOR */
+  .avail-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+  .dot-green { background: #27ae60; }
+  .dot-orange { background: #e67e22; }
+  .dot-red { background: #c0392b; }
+
+  @media (max-width: 900px) {
+    nav { padding: 0 20px; }
+    .page-header, .rooms-content { padding-left: 20px; padding-right: 20px; }
+    .room-list-card { flex-direction: column; }
+    .room-list-img { width: 100%; height: 200px; }
+    .room-list-top { flex-direction: column; }
+  }
 </style>
-
-<script>
-
-</script>
-
 </head>
 <body>
-    <nav class="rooms-nav">
-        <div class="rooms-header">
-        <a href="home.html" class="rooms-logo">Stay<span>Ease</span></a>
-    </div>
-    
+
+<nav>
+  <a href="index.html" class="nav-logo">Stay<span>Ease</span></a>
+  <ul class="nav-links">
+    <li><a href="rooms.html" style="color: var(--gold);">Rooms</a></li>
+    <li><a href="index.html#amenities">Amenities</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="login.html" class="btn-ghost">Sign In</a>
+    <a href="register.html" class="btn-gold">Register</a>
+  </div>
 </nav>
 
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="breadcrumb"><a href="index.html">Home</a> / Rooms & Suites</div>
+  <h1>Find Your Perfect Room</h1>
+  <p>Browse our collection of thoughtfully curated accommodations.</p>
+</div>
 
+<!-- MAIN LAYOUT -->
+<div class="main-layout">
 
+  <!-- ROOMS LIST -->
+  <div class="rooms-content">
+    <div class="results-header">
+      <div class="results-count"><strong>32 rooms</strong> found for your search</div>
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <div class="view-toggle">
+          <button class="view-btn active" title="List view">☰</button>
+          <button class="view-btn" title="Grid view">⊞</button>
+        </div>
+        <select class="sort-select">
+          <option>Sort: Price Low to High</option>
+          <option>Sort: Price High to Low</option>
+          <option>Sort: Most Popular</option>
+          <option>Sort: Newest</option>
+        </select>
+      </div>
+    </div>
 
+    <div class="room-list">
 
+      <!-- Room 1 -->
+      <div class="room-list-card" onclick="location.href='room-detail.html'">
+        <div class="room-list-img room-grand-horizon">
+          <img src="" alt="Grand Horizon Suite">
+          <div class="rl-badge badge-avail">Available</div>
+        </div>
+        <div class="room-list-info">
+          <div>
+            <div class="room-list-type">Deluxe Room · Room 101</div>
+            <div class="room-list-top">
+              <div>
+                <div class="room-list-name">Grand Horizon Suite</div>
+                <div class="room-list-desc">Elegant room with floor-to-ceiling windows offering sweeping city views. Features a king-sized bed and marble bathroom.</div>
+              </div>
+            </div>
+            <div class="room-list-meta">
+              <span>2 Guests</span>
+              <span>45 m²</span>
+              <span>King Bed</span>
+              <span>City View</span>
+            </div>
+          </div>
+          <div class="room-list-bottom">
+            <div class="tags">
+              <span class="tag">WiFi</span>
+              <span class="tag">Breakfast</span>
+              <span class="tag">Mini Bar</span>
+              <span class="tag">AC</span>
+            </div>
+            <div class="room-list-price-block">
+              <div class="room-list-price">$240</div>
+              <div class="room-list-per">per night</div>
+              <div class="room-list-actions">
+                <button class="btn-view">Details</button>
+                <button class="btn-book-sm">Book Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <!-- Room 2 -->
+      <div class="room-list-card" onclick="location.href='room-detail.html'">
+        <div class="room-list-img room-azure-oceanfront">
+          <img src="" alt="Azure Oceanfront Suite">
+          <div class="rl-badge badge-pop">Popular</div>
+        </div>
+        <div class="room-list-info">
+          <div>
+            <div class="room-list-type">Executive Suite · Room 205</div>
+            <div class="room-list-top">
+              <div>
+                <div class="room-list-name">Azure Oceanfront Suite</div>
+                <div class="room-list-desc">Breathtaking ocean views from every angle. Private terrace with sun loungers, separate living area, and premium rainfall shower.</div>
+              </div>
+            </div>
+            <div class="room-list-meta">
+              <span>3 Guests</span>
+              <span>72 m²</span>
+              <span>King + Sofa</span>
+              <span>Sea View</span>
+            </div>
+          </div>
+          <div class="room-list-bottom">
+            <div class="tags">
+              <span class="tag">WiFi</span>
+              <span class="tag">Breakfast</span>
+              <span class="tag">Balcony</span>
+              <span class="tag">Jacuzzi</span>
+            </div>
+            <div class="room-list-price-block">
+              <div class="room-list-price">$420</div>
+              <div class="room-list-per">per night</div>
+              <div class="room-list-actions">
+                <button class="btn-view">Details</button>
+                <button class="btn-book-sm">Book Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <!-- Room 3 -->
+      <div class="room-list-card" onclick="location.href='room-detail.html'">
+        <div class="room-list-img room-garden-retreat">
+          <img src="" alt="Garden Retreat Room">
+          <div class="rl-badge badge-avail">Available</div>
+        </div>
+        <div class="room-list-info">
+          <div>
+            <div class="room-list-type">Standard Room · Room 302</div>
+            <div class="room-list-top">
+              <div>
+                <div class="room-list-name">Garden Retreat Room</div>
+                <div class="room-list-desc">Serene garden view with natural lighting, queen bed, and cozy reading nook. Perfect for solo travelers or couples.</div>
+              </div>
+            </div>
+            <div class="room-list-meta">
+              <span>2 Guests</span>
+              <span>30 m²</span>
+              <span>Queen Bed</span>
+              <span>Garden View</span>
+            </div>
+          </div>
+          <div class="room-list-bottom">
+            <div class="tags">
+              <span class="tag">WiFi</span>
+              <span class="tag">AC</span>
+              <span class="tag">TV</span>
+            </div>
+            <div class="room-list-price-block">
+              <div class="room-list-price">$120</div>
+              <div class="room-list-per">per night</div>
+              <div class="room-list-actions">
+                <button class="btn-view">Details</button>
+                <button class="btn-book-sm">Book Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Room 4 -->
+      <div class="room-list-card" onclick="location.href='room-detail.html'">
+        <div class="room-list-img room-imperial-penthouse">
+          <img src="" alt="The Imperial Penthouse">
+          <div class="rl-badge badge-last">Last Room</div>
+        </div>
+        <div class="room-list-info">
+          <div>
+            <div class="room-list-type">Presidential Suite · Penthouse</div>
+            <div class="room-list-top">
+              <div>
+                <div class="room-list-name">The Imperial Penthouse</div>
+                <div class="room-list-desc">Our crown jewel. Two floors of luxury with private chef, butler service, private pool, and 360° panoramic views of the city.</div>
+              </div>
+            </div>
+            <div class="room-list-meta">
+              <span>6 Guests</span>
+              <span>160 m²</span>
+              <span>3 Bedrooms</span>
+              <span>Panoramic</span>
+            </div>
+          </div>
+          <div class="room-list-bottom">
+            <div class="tags">
+              <span class="tag">Butler</span>
+              <span class="tag">Private Pool</span>
+              <span class="tag">Chef</span>
+              <span class="tag">WiFi</span>
+            </div>
+            <div class="room-list-price-block">
+              <div class="room-list-price">$980</div>
+              <div class="room-list-per">per night</div>
+              <div class="room-list-actions">
+                <button class="btn-view">Details</button>
+                <button class="btn-book-sm">Book Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PAGINATION -->
+    <div class="pagination">
+      <button class="page-btn disabled">‹</button>
+      <button class="page-btn active">1</button>
+      <button class="page-btn">2</button>
+      <button class="page-btn">3</button>
+      <span style="font-size: 14px; color: var(--text-light);">…</span>
+      <button class="page-btn">8</button>
+      <button class="page-btn">›</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.star-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.star-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+  document.querySelectorAll('.view-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+  document.querySelectorAll('.page-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      if (this.classList.contains('disabled')) return;
+      document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+</script>
 </body>
 </html>
