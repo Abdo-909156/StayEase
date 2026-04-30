@@ -7,11 +7,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-   /*Universal selector used to reset css default by browser*/
+/*universal selector (reset browserdefault css)*/
 *{
-    padding: 0px;
-    margin : 0px;
+    margin: 0; padding: 0; box-sizing: border-box;
 }
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     --gold: #C9A96E; --gold-light: #E8D5B0; --gold-dark: #8B6914;
@@ -39,7 +39,7 @@
   .btn-ghost { padding: 8px 20px; border: 1px solid rgba(201,169,110,0.5); color: var(--gold); background: transparent; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 14px; cursor: pointer; text-decoration: none; display: inline-block; }
   .btn-gold { padding: 8px 20px; background: var(--gold); color: var(--navy); border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; text-decoration: none; display: inline-block; }
 
-  /* PAGE HEADER */
+/*page header*/
   .page-header {
     background: var(--navy);
     padding: 64px 60px 48px;
@@ -50,10 +50,10 @@
   .page-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 300; color: var(--white); margin-bottom: 8px; }
   .page-header p { font-size: 15px; color: rgba(255,255,255,0.5); }
 
-  /* MAIN LAYOUT */
+  
   .main-layout { display: grid; grid-template-columns: 1fr; gap: 0; min-height: calc(100vh - 280px); }
 
-  /* ROOMS CONTENT */
+  /* rooms content*/
   .rooms-content { padding: 32px 40px; }
   .results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
   .results-count { font-size: 15px; color: var(--text-mid); }
@@ -68,7 +68,7 @@
   /* ROOM LIST CARDS */
   .room-list { display: flex; flex-direction: column; gap: 20px; }
   .room-list-card {
-    background: var(--white); border-radius: var(--radius-lg); overflow: hidden;
+    background: var(--white); border-radius: 20px; overflow: hidden;
     box-shadow: var(--shadow-soft); display: flex; transition: transform 0.2s, box-shadow 0.2s;
     cursor: pointer;
   }
@@ -98,18 +98,13 @@
   .tags { display: flex; gap: 6px; flex-wrap: wrap; }
   .tag { font-size: 11px; padding: 4px 10px; background: var(--cream); border-radius: 100px; color: var(--text-mid); }
 
-  /* PAGINATION */
+  /* pages */
   .pagination { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--cream-mid); }
   .page-btn { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: var(--white); border: 1px solid var(--cream-mid); border-radius: var(--radius); font-size: 14px; color: var(--text-mid); cursor: pointer; transition: all 0.2s; }
   .page-btn:hover, .page-btn.active { background: var(--navy); color: var(--gold); border-color: var(--navy); }
   .page-btn.disabled { opacity: 0.4; cursor: not-allowed; }
 
-  /* AVAILABILITY INDICATOR */
-  .avail-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 5px; }
-  .dot-green { background: #27ae60; }
-  .dot-orange { background: #e67e22; }
-  .dot-red { background: #c0392b; }
-
+ 
   @media (max-width: 900px) {
     nav { padding: 0 20px; }
     .page-header, .rooms-content { padding-left: 20px; padding-right: 20px; }
@@ -122,12 +117,12 @@
 <body>
 
 <nav>
-  <a href="index.html" class="nav-logo">Stay<span>Ease</span></a>
+  <a href="home.html" class="nav-logo">Stay<span>Ease</span></a>
   <ul class="nav-links">
     <li><a href="rooms.html" style="color: var(--gold);">Rooms</a></li>
-    <li><a href="index.html#amenities">Amenities</a></li>
-    <li><a href="#">About</a></li>
-    <li><a href="#">Contact</a></li>
+    <li><a href="home.html">Amenities</a></li>
+    <li><a href="home.html#about">About</a></li>
+    <li><a href="home.html#contact ">Contact</a></li>
   </ul>
   <div class="nav-right">
     <a href="login.html" class="btn-ghost">Sign In</a>
@@ -135,20 +130,21 @@
   </div>
 </nav>
 
-<!-- PAGE HEADER -->
+<!-- page header -->
+
 <div class="page-header">
-  <div class="breadcrumb"><a href="index.html">Home</a> / Rooms & Suites</div>
+  <div class="breadcrumb"><a href="home.html">Home</a> / Rooms & Suites</div>
   <h1>Find Your Perfect Room</h1>
   <p>Browse our collection of thoughtfully curated accommodations.</p>
 </div>
 
-<!-- MAIN LAYOUT -->
+
 <div class="main-layout">
 
-  <!-- ROOMS LIST -->
+  <!-- rooms list -->
+
   <div class="rooms-content">
     <div class="results-header">
-      <div class="results-count"><strong>32 rooms</strong> found for your search</div>
       <div style="display: flex; gap: 12px; align-items: center;">
         <div class="view-toggle">
           <button class="view-btn active" title="List view">☰</button>
@@ -166,10 +162,9 @@
     <div class="room-list">
 
       <!-- Room 1 -->
-      <div class="room-list-card" onclick="location.href='room-detail.html'">
+      <div class="room-list-card" onclick="location.href='room-detail-1.html'">
         <div class="room-list-img room-grand-horizon">
-          <img src="" alt="Grand Horizon Suite">
-          <div class="rl-badge badge-avail">Available</div>
+          <img src="images/Azure.jpeg" alt="Grand Horizon Suite">
         </div>
         <div class="room-list-info">
           <div>
@@ -207,14 +202,14 @@
       </div>
 
       <!-- Room 2 -->
-      <div class="room-list-card" onclick="location.href='room-detail.html'">
+      <div class="room-list-card" onclick="location.href='room-detail-2.html'">
         <div class="room-list-img room-azure-oceanfront">
-          <img src="" alt="Azure Oceanfront Suite">
+          <img src="images/deluxe-1_1920x960.webp" alt="Azure Oceanfront Suite">
           <div class="rl-badge badge-pop">Popular</div>
         </div>
         <div class="room-list-info">
           <div>
-            <div class="room-list-type">Executive Suite · Room 205</div>
+            <div class="room-list-type">Executive Suite · 102</div>
             <div class="room-list-top">
               <div>
                 <div class="room-list-name">Azure Oceanfront Suite</div>
@@ -248,14 +243,13 @@
       </div>
 
       <!-- Room 3 -->
-      <div class="room-list-card" onclick="location.href='room-detail.html'">
+      <div class="room-list-card" onclick="location.href='room-detail-3.html'">
         <div class="room-list-img room-garden-retreat">
-          <img src="" alt="Garden Retreat Room">
-          <div class="rl-badge badge-avail">Available</div>
+          <img src="images/GrandHorizon.jpg" alt="Garden Retreat Room">
         </div>
         <div class="room-list-info">
           <div>
-            <div class="room-list-type">Standard Room · Room 302</div>
+            <div class="room-list-type">Standard Room · Room 103</div>
             <div class="room-list-top">
               <div>
                 <div class="room-list-name">Garden Retreat Room</div>
@@ -288,10 +282,10 @@
       </div>
 
       <!-- Room 4 -->
-      <div class="room-list-card" onclick="location.href='room-detail.html'">
+      <div class="room-list-card" onclick="location.href='room-detail-4.html'">
         <div class="room-list-img room-imperial-penthouse">
-          <img src="" alt="The Imperial Penthouse">
-          <div class="rl-badge badge-last">Last Room</div>
+          <img src="images/wi-mlawi-penthouse-terrace-19551_Classic-Hor.jpeg" alt="The Imperial Penthouse">
+        
         </div>
         <div class="room-list-info">
           <div>
@@ -330,7 +324,7 @@
 
     </div>
 
-    <!-- PAGINATION -->
+    <!-- Pages -->
     <div class="pagination">
       <button class="page-btn disabled">‹</button>
       <button class="page-btn active">1</button>

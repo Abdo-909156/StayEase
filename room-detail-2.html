@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grand Horizon Suite — StayEase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --gold: #C9A96E; --gold-light: #E8D5B0; --gold-dark: #8B6914;
+    --navy: #0D1B2A; --navy-mid: #1A2E42; --navy-soft: #243447;
+    --cream: #FAF7F2; --cream-mid: #F0EBE1;
+    --text-dark: #0D1B2A; --text-mid: #4A5568; --text-light: #8A9BA8;
+    --white: #FFFFFF;
+    --radius: 4px;
+  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-dark); }
+
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 60px; height: 72px;
+    background: rgba(13,27,42,0.97); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,169,110,0.2);
+  }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500; color: var(--gold); text-decoration: none; }
+  .nav-logo span { color: var(--white); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-right { display: flex; gap: 12px; }
+  .btn-ghost { padding: 8px 20px; border: 1px solid rgba(201,169,110,0.5); color: var(--gold); background: transparent; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 14px; cursor: pointer; text-decoration: none; display: inline-block; }
+  .btn-gold { padding: 8px 20px; background: var(--gold); color: var(--navy); border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; text-decoration: none; display: inline-block; }
+
+  .hero {
+    width: 100%; height: 480px;
+    position: relative; overflow: hidden;
+    background: var(--navy-mid);
+  }
+  .hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .back-btn {
+    position: absolute; top: 24px; left: 24px;
+    background: rgba(13,27,42,0.7); backdrop-filter: blur(8px);
+    border: 1px solid rgba(201,169,110,0.3);
+    color: var(--white); padding: 8px 16px; border-radius: var(--radius);
+    font-size: 13px; text-decoration: none; transition: background 0.2s;
+  }
+  .back-btn:hover { background: rgba(13,27,42,0.95); }
+
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 56px 24px 80px;
+  }
+  .room-type { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .room-title { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; color: var(--text-dark); line-height: 1.1; margin-bottom: 8px; }
+  .room-price { font-family: 'Cormorant Garamond', serif; font-size: 28px; color: var(--text-mid); margin-bottom: 28px; }
+  .room-price span { font-size: 14px; font-family: 'DM Sans', sans-serif; color: var(--text-light); }
+  .divider { height: 1px; background: var(--cream-mid); margin-bottom: 28px; }
+  .room-desc { font-size: 15px; color: var(--text-mid); line-height: 1.9; margin-bottom: 40px; }
+  .btn-book {
+    display: inline-block; padding: 14px 48px;
+    background: var(--navy); color: var(--gold);
+    border: none; border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500;
+    cursor: pointer; text-decoration: none; transition: background 0.2s;
+  }
+  .btn-book:hover { background: var(--navy-soft); }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .hero { height: 280px; }
+    .room-title { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Stay<span>Ease</span></a>
+  <ul class="nav-links">
+    <li><a href="rooms.html" style="color: var(--gold);">Rooms</a></li>
+    <li><a href="index.html#amenities">Amenities</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="login.html" class="btn-ghost">Sign In</a>
+    <a href="register.html" class="btn-gold">Register</a>
+  </div>
+</nav>
+
+<div class="hero room-grand-horizon">
+  <a href="rooms.html" class="back-btn">← Back to Rooms</a>
+  <img src="" alt="Grand Horizon Suite">
+</div>
+
+<div class="content">
+  <div class="room-type">Azure · Room 205</div>
+  <h1 class="room-title">Azure Oceanfront Suite</h1>
+  <div class="room-price">$420 <span>/ night</span></div>
+  <div class="divider"></div>
+  <p class="room-desc">
+    Breathtaking ocean views from every angle. Private terrace with sun loungers, separate living area, and premium rainfall shower.
+  </p>
+  <a href="#" class="btn-book">Book Now</a>
+</div>
+
+</body>
+</html>

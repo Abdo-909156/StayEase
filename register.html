@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StayEase — Create Account</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --gold: #C9A96E;
+    --gold-light: #E8D5B0;
+    --gold-dark: #8B6914;
+    --navy: #0D1B2A;
+    --navy-mid: #1A2E42;
+    --navy-soft: #243447;
+    --cream: #FAF7F2;
+    --cream-mid: #F0EBE1;
+    --text-dark: #0D1B2A;
+    --text-mid: #4A5568;
+    --text-light: #8A9BA8;
+    --white: #FFFFFF;
+    --shadow-soft: 0 4px 24px rgba(13,27,42,0.08);
+    --shadow-card: 0 8px 40px rgba(13,27,42,0.18);
+    --radius: 4px;
+    --radius-lg: 8px;
+    --error: #c0392b;
+    --success: #2d6a4f;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--text-dark);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 60px; height: 72px;
+    background: rgba(13,27,42,0.97); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,169,110,0.2);
+  }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500; color: var(--gold); letter-spacing: 2px; text-decoration: none; }
+  .nav-logo span { color: var(--white); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 14px; letter-spacing: 0.5px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-right { display: flex; gap: 16px; align-items: center; }
+  .btn-ghost { padding: 8px 20px; border: 1px solid rgba(201,169,110,0.5); color: var(--gold); background: transparent; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 14px; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block; }
+  .btn-ghost:hover { background: rgba(201,169,110,0.1); }
+  .btn-gold { padding: 8px 20px; background: var(--gold); color: var(--navy); border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block; }
+  .btn-gold:hover { background: var(--gold-light); }
+
+  /* MAIN LAYOUT */
+  .page-wrapper {
+    display: flex;
+    min-height: 100vh;
+    padding-top: 72px;
+  }
+
+  /* LEFT PANEL */
+  .left-panel {
+    width: 400px;
+    flex-shrink: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 48px;
+    background: var(--navy-mid);
+    overflow: hidden;
+  }
+  .left-bg {
+    position: absolute; inset: 0;
+    background: url('https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=800&q=80') center/cover no-repeat;
+    opacity: 0.1;
+  }
+  .left-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(13,27,42,0.7) 0%, rgba(26,46,66,0.95) 100%);
+  }
+  .left-content {
+    position: relative; z-index: 2;
+    text-align: center;
+  }
+  .left-tag {
+    display: inline-block; font-size: 11px; letter-spacing: 4px;
+    color: var(--gold); text-transform: uppercase; margin-bottom: 28px;
+  }
+  .left-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 3vw, 44px);
+    font-weight: 300; color: var(--white); line-height: 1.15; margin-bottom: 18px;
+  }
+  .left-title em { font-style: italic; color: var(--gold); }
+  .left-sub {
+    font-size: 13px; color: rgba(255,255,255,0.45);
+    line-height: 1.75; margin-bottom: 40px;
+  }
+
+  /* PROGRESS STEPS */
+  .steps {
+    display: flex; flex-direction: column; gap: 0;
+    text-align: left; width: 100%;
+  }
+  .step {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(201,169,110,0.1);
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    width: 30px; height: 30px; flex-shrink: 0;
+    border: 1px solid rgba(201,169,110,0.4); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px; color: var(--gold);
+  }
+  .step-label strong { display: block; font-size: 13px; color: var(--white); font-weight: 500; margin-bottom: 2px; }
+  .step-label span { font-size: 12px; color: rgba(255,255,255,0.35); }
+
+  /* PERKS */
+  .perks {
+    margin-top: 32px;
+    padding: 20px;
+    background: rgba(201,169,110,0.07);
+    border: 1px solid rgba(201,169,110,0.15);
+    border-radius: var(--radius-lg);
+    text-align: left;
+  }
+  .perks-title {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 12px;
+  }
+  .perk { font-size: 12px; color: rgba(255,255,255,0.45); padding: 4px 0; display: flex; gap: 8px; }
+  .perk::before { content: '✦'; color: var(--gold); opacity: 0.6; font-size: 10px; flex-shrink: 0; padding-top: 2px; }
+
+  /* RIGHT PANEL — FORM */
+  .right-panel {
+    flex: 1;
+    background: var(--cream);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 64px 64px;
+    position: relative;
+    overflow-y: auto;
+  }
+  .form-inner { max-width: 540px; }
+
+  .form-eyebrow {
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 10px;
+  }
+  .form-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px; font-weight: 400; color: var(--text-dark);
+    line-height: 1.1; margin-bottom: 6px;
+  }
+  .form-subtitle { font-size: 14px; color: var(--text-mid); margin-bottom: 36px; }
+  .form-subtitle a { color: var(--gold-dark); text-decoration: none; font-weight: 500; }
+  .form-subtitle a:hover { text-decoration: underline; }
+
+  .fields-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+
+  .form-group { margin-bottom: 20px; }
+  .form-label {
+    display: block; font-size: 11px; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--text-mid);
+    margin-bottom: 7px; font-weight: 500;
+  }
+  .form-input {
+    width: 100%; padding: 13px 16px;
+    border: 1px solid var(--cream-mid);
+    border-radius: var(--radius);
+    background: var(--white);
+    font-family: 'DM Sans', sans-serif; font-size: 14px;
+    color: var(--text-dark);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+  .form-input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,169,110,0.12);
+  }
+  .form-input::placeholder { color: var(--text-light); }
+  .form-input.error { border-color: var(--error); }
+  .field-hint { font-size: 11px; color: var(--text-light); margin-top: 5px; }
+  .field-error { font-size: 11px; color: var(--error); margin-top: 5px; display: none; }
+
+  /* PASSWORD STRENGTH */
+  .strength-bar { display: flex; gap: 4px; margin-top: 8px; }
+  .strength-seg {
+    flex: 1; height: 3px; border-radius: 2px;
+    background: var(--cream-mid); transition: background 0.3s;
+  }
+  .strength-seg.weak { background: #e74c3c; }
+  .strength-seg.fair { background: #e67e22; }
+  .strength-seg.good { background: #f1c40f; }
+  .strength-seg.strong { background: #2ecc71; }
+  .strength-label { font-size: 11px; color: var(--text-light); margin-top: 4px; }
+
+  /* PHONE INPUT */
+  .phone-wrapper { display: flex; gap: 0; }
+  .phone-code {
+    padding: 13px 14px;
+    border: 1px solid var(--cream-mid);
+    border-right: none;
+    border-radius: var(--radius) 0 0 var(--radius);
+    background: var(--cream-mid);
+    font-family: 'DM Sans', sans-serif; font-size: 14px;
+    color: var(--text-mid);
+    white-space: nowrap;
+    display: flex; align-items: center;
+  }
+  .phone-wrapper .form-input {
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+
+  /* SELECT */
+  .form-select {
+    width: 100%; padding: 13px 16px;
+    border: 1px solid var(--cream-mid);
+    border-radius: var(--radius);
+    background: var(--white);
+    font-family: 'DM Sans', sans-serif; font-size: 14px;
+    color: var(--text-dark);
+    outline: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A9BA8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    transition: border-color 0.2s;
+  }
+  .form-select:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,169,110,0.12); }
+
+  /* TERMS */
+  .terms-group { margin: 24px 0; }
+  .terms-label {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 13px; color: var(--text-mid); cursor: pointer; line-height: 1.5;
+  }
+  .terms-label input[type="checkbox"] {
+    width: 16px; height: 16px; flex-shrink: 0;
+    accent-color: var(--gold-dark); margin-top: 2px; cursor: pointer;
+  }
+  .terms-label a { color: var(--gold-dark); text-decoration: none; }
+  .terms-label a:hover { text-decoration: underline; }
+
+  .btn-submit {
+    width: 100%; padding: 15px;
+    background: var(--navy); color: var(--gold);
+    border: none; border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500;
+    cursor: pointer; letter-spacing: 0.5px;
+    transition: background 0.25s, color 0.25s;
+  }
+  .btn-submit:hover { background: var(--gold); color: var(--navy); }
+  .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .divider-or {
+    display: flex; align-items: center; gap: 16px;
+    margin: 24px 0; color: var(--text-light); font-size: 12px; letter-spacing: 1px;
+  }
+  .divider-or::before, .divider-or::after {
+    content: ''; flex: 1; height: 1px; background: var(--cream-mid);
+  }
+
+  .btn-social {
+    width: 100%; padding: 13px;
+    background: var(--white); border: 1px solid var(--cream-mid);
+    border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif; font-size: 14px;
+    color: var(--text-dark); cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .btn-social:hover { border-color: var(--gold); box-shadow: var(--shadow-soft); }
+  .btn-social svg { width: 18px; height: 18px; }
+
+  .deco-corner {
+    position: absolute; bottom: 24px; right: 32px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px; letter-spacing: 3px;
+    color: var(--text-light); text-transform: uppercase;
+    opacity: 0.4;
+  }
+
+  /* SUCCESS STATE */
+  .success-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 200;
+    background: var(--navy);
+    align-items: center; justify-content: center;
+    flex-direction: column; gap: 20px;
+    text-align: center; padding: 40px;
+  }
+  .success-overlay.show { display: flex; }
+  .success-icon { font-size: 56px; margin-bottom: 8px; }
+  .success-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px; font-weight: 300; color: var(--white); margin-bottom: 8px;
+  }
+  .success-title em { color: var(--gold); font-style: italic; }
+  .success-sub { font-size: 15px; color: rgba(255,255,255,0.5); max-width: 380px; line-height: 1.7; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .form-inner > * { animation: fadeUp 0.5s ease both; }
+  .form-eyebrow { animation-delay: 0.05s; }
+  .form-title { animation-delay: 0.1s; }
+  .form-subtitle { animation-delay: 0.15s; }
+
+  @media (max-width: 1000px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .left-panel { display: none; }
+    .right-panel { padding: 48px 28px; }
+    .fields-row { grid-template-columns: 1fr; gap: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SUCCESS OVERLAY -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-icon">🏨</div>
+  <h2 class="success-title">Welcome to <em>StayEase</em></h2>
+  <p class="success-sub">Your account has been created. You now have access to exclusive rates and seamless booking.</p>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="home.html" class="nav-logo">Stay<span>Ease</span></a>
+  <ul class="nav-links">
+    <li><a href="home.html">Home</a></li>
+    <li><a href="rooms.html">Rooms</a></li>
+    <li><a href="home.html#amenities">Amenities</a></li>
+    <li><a href="home.html#about">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="login.html" class="btn-ghost">Sign In</a>
+    <a href="register.html" class="btn-gold">Register</a>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <div class="left-bg"></div>
+    <div class="left-overlay"></div>
+    <div class="left-content">
+      <div class="left-tag">✦ Join StayEase</div>
+      <h1 class="left-title">Begin Your<br><em>Journey</em></h1>
+      <p class="left-sub">Create your account in minutes and unlock a world of premium stays and member-only privileges.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-label">
+            <strong>Create Your Account</strong>
+            <span>Fill in your personal details</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-label">
+            <strong>Verify Your Email</strong>
+            <span>Confirm your identity securely</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-label">
+            <strong>Start Exploring</strong>
+            <span>Browse rooms & make your first booking</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="perks">
+        <div class="perks-title">Member Benefits</div>
+        <div class="perk">Exclusive member rates up to 20% off</div>
+        <div class="perk">Early access to new room listings</div>
+        <div class="perk">Priority customer support</div>
+        <div class="perk">Flexible booking modifications</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL — FORM -->
+  <div class="right-panel">
+    <div class="form-inner">
+      <div class="form-eyebrow">✦ New Account</div>
+      <h2 class="form-title">Create Account</h2>
+      <p class="form-subtitle">Already have an account? <a href="login.html">Sign in here</a></p>
+
+      <!-- NAME ROW -->
+      <div class="fields-row">
+        <div class="form-group">
+          <label class="form-label" for="firstName">First Name</label>
+          <input class="form-input" type="text" id="firstName" placeholder="John" autocomplete="given-name">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="lastName">Last Name</label>
+          <input class="form-input" type="text" id="lastName" placeholder="Smith" autocomplete="family-name">
+        </div>
+      </div>
+
+      <!-- EMAIL -->
+      <div class="form-group">
+        <label class="form-label" for="email">Email Address</label>
+        <input class="form-input" type="email" id="email" placeholder="you@example.com" autocomplete="email">
+        <div class="field-hint">We'll send your booking confirmations here.</div>
+      </div>
+
+      <!-- PHONE -->
+      <div class="form-group">
+        <label class="form-label" for="phone">Phone Number</label>
+        <div class="phone-wrapper">
+          <div class="phone-code">+20</div>
+          <input class="form-input" type="tel" id="phone" placeholder="123456789" autocomplete="tel">
+        </div>
+      </div>
+
+      <!-- NATIONALITY -->
+      <div class="form-group">
+        <label class="form-label" for="nationality">Nationality</label>
+        <select class="form-select" id="nationality">
+          <option value="" disabled selected>Select your country</option>
+          <option>United States</option>
+          <option>United Kingdom</option>
+          <option>Canada</option>
+          <option>Australia</option>
+          <option>Egypt</option>
+          <option>UAE</option>
+          <option>France</option>
+          <option>Germany</option>
+          <option>Japan</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <!-- PASSWORD ROW -->
+      <div class="fields-row">
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <input class="form-input" type="password" id="password" placeholder="Min. 8 characters" oninput="checkStrength(this.value)">
+          <div class="strength-bar">
+            <div class="strength-seg" id="s1"></div>
+            <div class="strength-seg" id="s2"></div>
+            <div class="strength-seg" id="s3"></div>
+            <div class="strength-seg" id="s4"></div>
+          </div>
+          <div class="strength-label" id="strengthLabel"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="confirmPassword">Confirm Password</label>
+          <input class="form-input" type="password" id="confirmPassword" placeholder="Re-enter password">
+          <div class="field-error" id="pwError">Passwords do not match</div>
+        </div>
+      </div>
+
+      <!-- TERMS -->
+      <div class="terms-group">
+        <label class="terms-label">
+          <input type="checkbox" id="termsCheck">
+          I agree to StayEase's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. I consent to receive booking confirmations and offers.
+        </label>
+      </div>
+
+      <button class="btn-submit" type="button" onclick="handleRegister()">Create My Account</button>
+
+      <div class="divider-or">or sign up with</div>
+
+      <button class="btn-social" type="button">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+        </svg>
+        Continue with Google
+      </button>
+    </div>
+
+    <div class="deco-corner">StayEase © 2025</div>
+  </div>
+
+</div>
+
+<script>
+  function checkStrength(val) {
+    const segs = [document.getElementById('s1'), document.getElementById('s2'), document.getElementById('s3'), document.getElementById('s4')];
+    const label = document.getElementById('strengthLabel');
+    segs.forEach(s => { s.className = 'strength-seg'; });
+
+    if (!val) { label.textContent = ''; return; }
+
+    let score = 0;
+    if (val.length >= 8) score++;
+    if (/[A-Z]/.test(val)) score++;
+    if (/[0-9]/.test(val)) score++;
+    if (/[^A-Za-z0-9]/.test(val)) score++;
+
+    const levels = ['weak', 'fair', 'good', 'strong'];
+    const labels = ['Weak', 'Fair', 'Good', 'Strong'];
+    const colors = ['#e74c3c', '#e67e22', '#f1c40f', '#2ecc71'];
+
+    for (let i = 0; i < score; i++) {
+      segs[i].classList.add(levels[score - 1]);
+    }
+    label.textContent = labels[score - 1] || '';
+    label.style.color = colors[score - 1] || '';
+  }
+
+  function handleRegister() {
+    const first = document.getElementById('firstName').value.trim();
+    const last = document.getElementById('lastName').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const confirm = document.getElementById('confirmPassword').value;
+    const terms = document.getElementById('termsCheck').checked;
+    const btn = document.querySelector('.btn-submit');
+    const pwError = document.getElementById('pwError');
+
+    // Validate
+    pwError.style.display = 'none';
+    document.getElementById('confirmPassword').classList.remove('error');
+
+    if (!first || !last || !email || !password || !confirm) {
+      btn.textContent = 'Please fill in all required fields';
+      btn.style.background = '#8B6914';
+      btn.style.color = '#fff';
+      setTimeout(() => { btn.textContent = 'Create My Account'; btn.style.background = ''; btn.style.color = ''; }, 2500);
+      return;
+    }
+
+    if (password !== confirm) {
+      pwError.style.display = 'block';
+      document.getElementById('confirmPassword').classList.add('error');
+      return;
+    }
+
+    if (!terms) {
+      btn.textContent = 'Please accept the Terms of Service';
+      btn.style.background = '#8B6914';
+      btn.style.color = '#fff';
+      setTimeout(() => { btn.textContent = 'Create My Account'; btn.style.background = ''; btn.style.color = ''; }, 2500);
+      return;
+    }
+
+    btn.textContent = 'Creating your account...';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      document.getElementById('successOverlay').classList.add('show');
+      setTimeout(() => { window.location.href = 'login.html'; }, 2800);
+    }, 1400);
+  }
+</script>
+</body>
+</html>

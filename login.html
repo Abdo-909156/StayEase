@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StayEase — Sign In</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --gold: #C9A96E;
+    --gold-light: #E8D5B0;
+    --gold-dark: #8B6914;
+    --navy: #0D1B2A;
+    --navy-mid: #1A2E42;
+    --navy-soft: #243447;
+    --cream: #FAF7F2;
+    --cream-mid: #F0EBE1;
+    --text-dark: #0D1B2A;
+    --text-mid: #4A5568;
+    --text-light: #8A9BA8;
+    --white: #FFFFFF;
+    --shadow-soft: 0 4px 24px rgba(13,27,42,0.08);
+    --shadow-card: 0 8px 40px rgba(13,27,42,0.18);
+    --radius: 4px;
+    --radius-lg: 8px;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--text-dark);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 60px; height: 72px;
+    background: rgba(13,27,42,0.97); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,169,110,0.2);
+  }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500; color: var(--gold); letter-spacing: 2px; text-decoration: none; }
+  .nav-logo span { color: var(--white); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 14px; letter-spacing: 0.5px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-right { display: flex; gap: 16px; align-items: center; }
+  .btn-ghost { padding: 8px 20px; border: 1px solid rgba(201,169,110,0.5); color: var(--gold); background: transparent; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 14px; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block; }
+  .btn-ghost:hover { background: rgba(201,169,110,0.1); }
+  .btn-gold { padding: 8px 20px; background: var(--gold); color: var(--navy); border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block; }
+  .btn-gold:hover { background: var(--gold-light); }
+
+  /* MAIN LAYOUT */
+  .page-wrapper {
+    display: flex;
+    min-height: 100vh;
+    padding-top: 72px;
+  }
+
+  /* LEFT PANEL */
+  .left-panel {
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 60px;
+    background: var(--navy);
+    overflow: hidden;
+  }
+  .left-bg {
+    position: absolute; inset: 0;
+    background: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80') center/cover no-repeat;
+    opacity: 0.12;
+  }
+  .left-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(13,27,42,0.9) 0%, rgba(26,46,66,0.85) 100%);
+  }
+  .left-content {
+    position: relative; z-index: 2;
+    text-align: center;
+    max-width: 380px;
+  }
+  .left-tag {
+    display: inline-block; font-size: 11px; letter-spacing: 4px;
+    color: var(--gold); text-transform: uppercase; margin-bottom: 28px;
+  }
+  .left-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 3.5vw, 52px);
+    font-weight: 300; color: var(--white); line-height: 1.1; margin-bottom: 20px;
+  }
+  .left-title em { font-style: italic; color: var(--gold); }
+  .left-sub {
+    font-size: 14px; color: rgba(255,255,255,0.5);
+    line-height: 1.7; margin-bottom: 48px;
+  }
+  .left-divider {
+    width: 40px; height: 1px;
+    background: var(--gold); opacity: 0.4;
+    margin: 0 auto 36px;
+  }
+  .left-features { display: flex; flex-direction: column; gap: 18px; text-align: left; }
+  .feature-item { display: flex; align-items: flex-start; gap: 14px; }
+  .feature-icon {
+    width: 36px; height: 36px; flex-shrink: 0;
+    border: 1px solid rgba(201,169,110,0.3); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold); font-size: 15px;
+  }
+  .feature-text strong { display: block; font-size: 13px; color: var(--white); font-weight: 500; margin-bottom: 2px; }
+  .feature-text span { font-size: 12px; color: rgba(255,255,255,0.4); }
+
+  /* RIGHT PANEL — FORM */
+  .right-panel {
+    width: 520px;
+    flex-shrink: 0;
+    background: var(--cream);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 72px 56px;
+    position: relative;
+  }
+  .form-eyebrow {
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 10px;
+  }
+  .form-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px; font-weight: 400; color: var(--text-dark);
+    line-height: 1.1; margin-bottom: 6px;
+  }
+  .form-subtitle { font-size: 14px; color: var(--text-mid); margin-bottom: 40px; }
+  .form-subtitle a { color: var(--gold-dark); text-decoration: none; font-weight: 500; }
+  .form-subtitle a:hover { text-decoration: underline; }
+
+  .form-group { margin-bottom: 22px; }
+  .form-label {
+    display: block; font-size: 11px; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--text-mid);
+    margin-bottom: 8px; font-weight: 500;
+  }
+  .form-input {
+    width: 100%; padding: 13px 16px;
+    border: 1px solid var(--cream-mid);
+    border-radius: var(--radius);
+    background: var(--white);
+    font-family: 'DM Sans', sans-serif; font-size: 14px;
+    color: var(--text-dark);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+  .form-input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,169,110,0.12);
+  }
+  .form-input::placeholder { color: var(--text-light); }
+
+  .form-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
+  .remember-label { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-mid); cursor: pointer; }
+  .remember-label input[type="checkbox"] {
+    width: 16px; height: 16px; accent-color: var(--gold-dark); cursor: pointer;
+  }
+  .forgot-link { font-size: 13px; color: var(--gold-dark); text-decoration: none; }
+  .forgot-link:hover { text-decoration: underline; }
+
+  .btn-submit {
+    width: 100%; padding: 15px;
+    background: var(--navy); color: var(--gold);
+    border: none; border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500;
+    cursor: pointer; letter-spacing: 0.5px;
+    transition: background 0.25s, color 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .btn-submit:hover { background: var(--gold); color: var(--navy); }
+
+  .divider-or {
+    display: flex; align-items: center; gap: 16px;
+    margin: 28px 0; color: var(--text-light); font-size: 12px; letter-spacing: 1px;
+  }
+  .divider-or::before, .divider-or::after {
+    content: ''; flex: 1; height: 1px; background: var(--cream-mid);
+  }
+
+  .btn-social {
+    width: 100%; padding: 13px;
+    background: var(--white); border: 1px solid var(--cream-mid);
+    border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif; font-size: 14px;
+    color: var(--text-dark); cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    margin-bottom: 10px;
+  }
+  .btn-social:hover { border-color: var(--gold); box-shadow: var(--shadow-soft); }
+  .btn-social svg { width: 18px; height: 18px; }
+
+  .form-footer-note {
+    margin-top: 28px; font-size: 12px; color: var(--text-light);
+    text-align: center; line-height: 1.6;
+  }
+  .form-footer-note a { color: var(--gold-dark); text-decoration: none; }
+  .form-footer-note a:hover { text-decoration: underline; }
+
+  /* DECORATIVE CORNER */
+  .deco-corner {
+    position: absolute; bottom: 32px; right: 32px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px; letter-spacing: 3px;
+    color: var(--text-light); text-transform: uppercase;
+    opacity: 0.5;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .right-panel > * { animation: fadeUp 0.5s ease both; }
+  .form-eyebrow { animation-delay: 0.05s; }
+  .form-title { animation-delay: 0.1s; }
+  .form-subtitle { animation-delay: 0.15s; }
+  .form-group:nth-child(1) { animation-delay: 0.2s; }
+  .form-group:nth-child(2) { animation-delay: 0.25s; }
+  .form-row { animation-delay: 0.3s; }
+  .btn-submit { animation-delay: 0.35s; }
+  .divider-or { animation-delay: 0.4s; }
+  .btn-social { animation-delay: 0.45s; }
+  .form-footer-note { animation-delay: 0.5s; }
+
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .left-panel { display: none; }
+    .right-panel { width: 100%; padding: 48px 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Stay<span>Ease</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="rooms.html">Rooms</a></li>
+    <li><a href="index.html#amenities">Amenities</a></li>
+    <li><a href="index.html#about">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="login.html" class="btn-ghost">Sign In</a>
+    <a href="register.html" class="btn-gold">Register</a>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <div class="left-bg"></div>
+    <div class="left-overlay"></div>
+    <div class="left-content">
+      <div class="left-tag">✦ Welcome Back</div>
+      <h1 class="left-title">Your Perfect<br><em>Stay</em> Awaits</h1>
+      <p class="left-sub">Sign in to access your bookings, manage reservations, and discover exclusive member rates across our premium properties.</p>
+      <div class="left-divider"></div>
+      <div class="left-features">
+        <div class="feature-item">
+          <div class="feature-icon">🗓</div>
+          <div class="feature-text">
+            <strong>Manage Bookings</strong>
+            <span>View, modify or cancel reservations anytime</span>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">⭐</div>
+          <div class="feature-text">
+            <strong>Exclusive Member Rates</strong>
+            <span>Up to 20% off on select rooms</span>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🔔</div>
+          <div class="feature-text">
+            <strong>Instant Notifications</strong>
+            <span>Real-time updates on availability & offers</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL — FORM -->
+  <div class="right-panel">
+    <div class="form-eyebrow">✦ Member Access</div>
+    <h2 class="form-title">Sign In</h2>
+    <p class="form-subtitle">New to StayEase? <a href="register.html">Create an account</a></p>
+
+    <div class="form-group">
+      <label class="form-label" for="email">Email Address</label>
+      <input class="form-input" type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="password">Password</label>
+      <input class="form-input" type="password" id="password" name="password" placeholder="••••••••" autocomplete="current-password">
+    </div>
+
+    <div class="form-row">
+      <label class="remember-label">
+        <input type="checkbox" name="remember"> Remember me
+      </label>
+      <a href="#" class="forgot-link">Forgot password?</a>
+    </div>
+
+    <button class="btn-submit" type="button" onclick="handleLogin()">Sign In to StayEase</button>
+
+    <div class="divider-or">or continue with</div>
+
+    <button class="btn-social" type="button">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+      </svg>
+      Continue with Google
+    </button>
+
+    <p class="form-footer-note">
+      By signing in, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+    </p>
+
+    <div class="deco-corner">StayEase © 2025</div>
+  </div>
+
+</div>
+
+<script>
+  function handleLogin() {
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const btn = document.querySelector('.btn-submit');
+
+    if (!email || !password) {
+      btn.textContent = 'Please fill in all fields';
+      btn.style.background = '#8B6914';
+      btn.style.color = '#fff';
+      setTimeout(() => {
+        btn.textContent = 'Sign In to StayEase';
+        btn.style.background = '';
+        btn.style.color = '';
+      }, 2000);
+      return;
+    }
+
+    btn.textContent = 'Signing in...';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      btn.textContent = '✓ Welcome Back!';
+      btn.style.background = '#2d6a4f';
+      btn.style.color = '#fff';
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 1000);
+    }, 1200);
+  }
+
+  // Allow Enter key submit
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter') handleLogin();
+  });
+</script>
+</body>
+</html>
